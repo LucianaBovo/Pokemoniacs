@@ -1,6 +1,5 @@
 const pg = require('pg');
 
-
 const connectionString = process.env.FULL_PG_URL;
 
 const pool = new pg.Pool({ connectionString })
