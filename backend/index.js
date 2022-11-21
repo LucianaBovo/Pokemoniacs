@@ -1,8 +1,10 @@
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const uuidv4 = require('uuidv4');
 const cors = require('cors');
 const dotenv = require("dotenv");
+const api = require('./api');
 dotenv.config();
 
 const DB = require('./db');
@@ -22,6 +24,7 @@ const getUsers = async () => {
         return [];
     }
 };
+
 
 const getUsersCards = async () => {
     try {
