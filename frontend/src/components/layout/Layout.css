@@ -1,0 +1,13 @@
+.layout {
+  margin: auto;
+  height: 100vh;
+  width: 800px;
+  border: 1px solid;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.main-container {
+  flex: 1;
+}

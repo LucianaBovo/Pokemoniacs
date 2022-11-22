@@ -1,0 +1,8 @@
+.logged-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.unlogged-box {
+  
+}

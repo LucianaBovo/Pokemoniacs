@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import './PokeCard.css'
-import CardInfo from './CardInfo'
+import CardInfo from './CardInfo';
 const PokeCard = ({ card }) => {
     //    const [toggle, setToggle] = useState();
     const [visible, setVisible] = useState(false);
@@ -9,6 +9,7 @@ const PokeCard = ({ card }) => {
     const handleClick = () => {
         setVisible(!visible);
     }
+
     return (
         <div className='poke-card' key={card.id}>
             <img src={card.imageUrl} alt="" onClick={handleClick} />
