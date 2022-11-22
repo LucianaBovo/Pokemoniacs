@@ -1,6 +1,10 @@
 import "./App.css";
 import SearchForm from "./components/SeachForm";
 import io from "socket.io-client";
+import LoginButton from "./components/authorization/LoginButton";
+import LogoutButton from "./components/authorization/LogoutButton";
+import Profile from "./components/authorization/Profile";
+import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect, useState } from "react";
 
 const socket = io.connect("http://localhost:3002");
@@ -25,9 +29,19 @@ function App() {
       setMessageReceived(data.message);
     });
   }, [socket]);
+
+  const { isAuthenticated } = useAuth0();
+  const { isLoading } = useAuth0();
+
+  if (isLoading) return <div>Loading...</div>;
+
   return (
     <div className="App">
       <SearchForm />
+      <LoginButton />
+      <LogoutButton />
+      <Profile />
+      {isAuthenticated && <SearchForm />}
       <input
         placeholder="Room Number..."
         onChange={(event) => {
