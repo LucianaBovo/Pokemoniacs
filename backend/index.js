@@ -47,8 +47,8 @@ app.get('/users/:id/cards', async (req, res) => {
 app.post('/users', async (req, res) => {
   try {
     const data = req.body;
-    const { name, email, password } = data;
-    if (!name || !email || !password) {
+    const { name, email, sub } = data;
+    if (!name || !email || !sub) {
       return res.status(400).send({ error: 'Invalid input.' });
     }
 
@@ -56,6 +56,15 @@ app.post('/users', async (req, res) => {
     return res.json({ success: true });
   } catch (error) {
     return res.status(500).json({ error: 'Error creating user.'});
+  }
+});
+
+app.get('/cards/available', async (req, res) => {
+  try {
+    const result = await CardsService.getAvailableCards();
+    return res.json(result);
+  } catch (error) {
+    return res.status(500).json({ error: 'Error fetching availabke cards.'});
   }
 });
 

@@ -4,13 +4,18 @@ const { CardStatus } = require('../utils/constants');
 
 const createUser = async (data) => {
   try {
+    if (await getUserBySub(data.sub)) {
+      return;
+    }
+  
     const id = uuidv4();
     const date = new Date().toString();
     const createdAt = date.slice(0, 24);
-    const { name, email, password } = data;
+    const { name, email, sub } = data;
+
     await DB.query(
-      `INSERT INTO 'users' ('id', 'name', 'email', 'password', 'createdAt')  
-        VALUES ($1, $2, $3, $4, $5)`, [id, name, email, password, createdAt]);
+      `INSERT INTO users (id, name, email, sub, "createdAt")  
+        VALUES ($1, $2, $3, $4, $5)`, [id, name, email, sub, createdAt]);
 
   } catch (error) {
     console.log('Error inserting user.', error);
@@ -31,6 +36,19 @@ const getUsers = async () => {
 const getUserById = async (userId) => {
   try {
     const result = await DB.query('SELECT * FROM users WHERE id = $1', [userId]);
+    if (result.rows.length === 0) {
+      return undefined;
+    }
+
+    return result.rows[0];
+  } catch (error) {
+    console.log('Error fetching user.', error);
+    throw error;
+  }
+};
+const getUserBySub = async (sub) => {
+  try {
+    const result = await DB.query('SELECT * FROM users WHERE sub = $1', [sub]);
     if (result.rows.length === 0) {
       return undefined;
     }
