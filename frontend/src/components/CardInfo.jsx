@@ -32,7 +32,7 @@ const CardInfo = ({ card }) => {
                 <option value="AS_GOOD_AS_NEW">As good as new</option>
                 <option value="USED">Used</option>
             </select>
-            <button onClick={postCard}>Post ad</button>
+            <button onClick={postCard}>Confirm</button>
         </div>
 
     )

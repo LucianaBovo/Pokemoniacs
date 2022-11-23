@@ -3,3 +3,9 @@
   grid-template-columns: 1fr 1fr 1fr;
   gap: 16px;
 }
+
+.price-container {
+  display: flex;
+  justify-content: flex-start;
+  margin-left: 8px;
+}
