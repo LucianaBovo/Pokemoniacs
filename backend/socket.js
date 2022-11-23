@@ -1,7 +1,12 @@
+// should be first, else process.env is empty
+const dotenv = require("dotenv");
+dotenv.config();
+
 const express = require("express");
 const app = express();
 const http = require("http");
 const { Server } = require("socket.io");
+const jwt = require("jsonwebtoken");
 const cors = require("cors");
 
 app.use(cors());
@@ -15,6 +20,23 @@ const io = new Server(server, {
   },
 });
 
+io.use(async (socket, next) => {
+  if (socket.handshake.query && socket.handshake.query.accessToken) {
+    try {
+      console.log(socket.handshake.query.accessToken);
+
+      return next();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const error = new Error("Authentication error");
+
+  error.data = { type: "accessToken required" };
+
+  next(error);
+});
 io.on("connection", (socket) => {
   console.log(`User connected: ${socket.id}`);
 
