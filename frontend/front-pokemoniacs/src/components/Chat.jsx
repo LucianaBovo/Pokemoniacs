@@ -7,8 +7,8 @@ let socket;
 
 const Chat = () => {
   const [room, setRoom] = useState("");
-  const [message, setMessage] = useState("");
-  const [messageReceived, setMessageReceived] = useState("");
+  const [newMessage, setNewMessage] = useState("");
+  const [messages, setMessages] = useState([]);
   const { getAccessTokenSilently } = useAuth0();
 
   const joinRoom = () => {
@@ -18,7 +18,7 @@ const Chat = () => {
   };
 
   const sendMessage = () => {
-    socket.emit("send_message", { message, room });
+    socket.emit("send_message", { newMessage, room });
   };
 
   useEffect(() => {
@@ -26,14 +26,16 @@ const Chat = () => {
       socket = io.connect("http://localhost:3001", {
         query: { accessToken },
       });
+
       socket.on("receive_message", (data) => {
-        setMessageReceived(data.message);
+        setMessages([...messages, data]);
       });
+
       socket.on("connect_error", (error) => {
         console.error(error);
       });
     });
-  });
+  }, []);
 
   return (
     <div>
@@ -47,12 +49,14 @@ const Chat = () => {
       <input
         placeholder="Message..."
         onChange={(event) => {
-          setMessage(event.target.value);
+          setNewMessage(event.target.value);
         }}
       />
-      <button onClick={sendMessage}> Send Message</button>
-      <h1> Message: </h1>
-      {messageReceived}
+      <button onClick={sendMessage}> Send Messages</button>
+      <h1> Messages: </h1>
+      {messages.map((m) => (
+        <h1>{m.message}</h1>
+      ))}
     </div>
   );
 };
