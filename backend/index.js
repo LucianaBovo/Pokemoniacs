@@ -4,6 +4,7 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 dotenv.config();
 
+const { attachSocketIO } = require("./src/socketio/socket.js");
 const UsersService = require("./src/service/users-service");
 const CardsService = require("./src/service/cards-service");
 
@@ -93,6 +94,6 @@ app.post("/users/:userId/cards", async (req, res) => {
   }
 });
 
-app.listen(3001, () => {
-  console.log("app listening on port 3001");
+attachSocketIO(app).listen(3001, () => {
+  console.log("App listening on port 3001");
 });
