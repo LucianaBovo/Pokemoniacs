@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const dotenv = require('dotenv');
 dotenv.config();
+const port = process.env.PORT || 3001;
 
 const UsersService = require('./src/service/users-service');
 const CardsService = require('./src/service/cards-service');
@@ -99,6 +100,6 @@ app.post('/users/:userId/cards', async (req, res) => {
 });
 
 
-app.listen(3001, () => {
+app.listen(port, () => {
   console.log('app listening on port 3001');
 });
