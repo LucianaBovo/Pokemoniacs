@@ -64,7 +64,7 @@ app.get('/cards/available', async (req, res) => {
     const result = await CardsService.getAvailableCards();
     return res.json(result);
   } catch (error) {
-    return res.status(500).json({ error: 'Error fetching availabke cards.'});
+    return res.status(500).json({ error: 'Error fetching available cards.'});
   }
 });
 

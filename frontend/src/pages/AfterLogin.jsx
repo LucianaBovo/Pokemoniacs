@@ -8,14 +8,14 @@ const AfterLogin = () => {
   const { user, isAuthenticated } = useAuth0();
 
   useEffect(() => {
-    const doStuff = async () => {
+    const checkUser = async () => {
       if (isAuthenticated) {
         await UsersApi.createUserIfNotExist(user);
         navigate('/');
       }
     }
 
-    doStuff();
+    checkUser();
   }, [isAuthenticated, user, navigate]);
 
   return (

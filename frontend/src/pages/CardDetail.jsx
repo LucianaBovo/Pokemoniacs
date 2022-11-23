@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import { useState } from 'react';
 
 import './CardDetail.css';
- 
+
 
 const CardDetail = () => {
   const [cardDetail, setCardDetail] = useState(null);

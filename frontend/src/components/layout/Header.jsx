@@ -7,7 +7,7 @@ const Header = () => {
 
   return (
     <div className="header">
-        <div><h2>Pokenomiacs</h2></div>
+        <div><h2>Pokemoniacs</h2></div>
         <AuthBox />
     </div>
   )
