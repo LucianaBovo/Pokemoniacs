@@ -1,7 +1,7 @@
 import React from 'react';
 
 const CardInfo = ({ card }) => {
-
+    
     return (
         <div>
             <h2>{card.name}</h2>
@@ -19,3 +19,4 @@ const CardInfo = ({ card }) => {
 }
 
 export default CardInfo
+

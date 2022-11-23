@@ -23,6 +23,7 @@ const Chat = () => {
     socket.on("receive_message", (data) => {
       setMessageReceived(data.message);
     });
+    // eslint-disable-next-line 
   }, [socket]);
 
   return (

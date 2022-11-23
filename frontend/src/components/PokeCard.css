@@ -7,8 +7,6 @@
     cursor: pointer;
     transition: all ease 200ms;
 }
-
-
 .poke-card img {
     width: 100%;
     object-fit: cover;

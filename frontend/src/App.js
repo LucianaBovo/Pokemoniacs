@@ -1,10 +1,11 @@
 import './App.css';
 import SearchForm from './components/SeachForm';
-import LoginButton from './components/authorization/LoginButton';
-import LogoutButton from './components/authorization/LogoutButton';
-import Profile from './components/authorization/Profile';
-import MainPage from './components/authorization/MainPage';
-import Layout from './components/layout/Layout';
+// import LoginButton from './components/authorization/LoginButton';
+// import LogoutButton from './components/authorization/LogoutButton';
+// import Profile from './components/authorization/Profile';
+// import MainPage from './components/authorization/MainPage';
+// import Layout from './components/layout/Layout';
+// import Chat from './components/Chat';
 import {
   createBrowserRouter,
   RouterProvider,
@@ -27,6 +28,14 @@ function App() {
       path: "/cards/:id",
       element: <CardDetail />,
     },
+    {
+      path: "/searchform",
+      element: <SearchForm />
+    },
+    // {
+    //   path: '/chat',
+    //   element: <Chat />
+    // }
   ]);
 
   return (
