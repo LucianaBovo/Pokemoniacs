@@ -4,8 +4,9 @@ const { CardStatus } = require('../utils/constants');
 
 const createUser = async (data) => {
   try {
-    if (await getUserBySub(data.sub)) {
-      return;
+    const user = await getUserBySub(data.sub);
+    if (user) {
+      return user.id;
     }
   
     const id = uuidv4();
@@ -13,10 +14,11 @@ const createUser = async (data) => {
     const createdAt = date.slice(0, 24);
     const { name, email, sub } = data;
 
-    await DB.query(
+    const result = await DB.query(
       `INSERT INTO users (id, name, email, sub, "createdAt")  
-        VALUES ($1, $2, $3, $4, $5)`, [id, name, email, sub, createdAt]);
+        VALUES ($1, $2, $3, $4, $5) RETURNING id`, [id, name, email, sub, createdAt]);
 
+    return result.rows[0].id;
   } catch (error) {
     console.log('Error inserting user.', error);
     throw error;

@@ -52,8 +52,8 @@ app.post('/users', async (req, res) => {
       return res.status(400).send({ error: 'Invalid input.' });
     }
 
-    await UsersService.createUser(data);
-    return res.json({ success: true });
+    const userId = await UsersService.createUser(data);
+    return res.json({ success: true, userId });
   } catch (error) {
     return res.status(500).json({ error: 'Error creating user.'});
   }

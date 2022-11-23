@@ -3,7 +3,11 @@ import { useAuth0 } from '@auth0/auth0-react';
 
 const LogoutButton = () => {
   const { logout } = useAuth0();
-  return <button onClick={ () => logout()}>Log out</button>;
+  const handleLogout = () => {
+    window.localStorage.removeItem('userId');
+    logout();
+  }
+  return <button onClick={handleLogout}>Log out</button>;
 }
 
 export default LogoutButton
