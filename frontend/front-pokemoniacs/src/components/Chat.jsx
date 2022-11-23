@@ -1,13 +1,15 @@
 import React from "react";
 import io from "socket.io-client";
 import { useEffect, useState } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 
-const socket = io.connect("http://localhost:3002");
+let socket;
 
 const Chat = () => {
   const [room, setRoom] = useState("");
   const [message, setMessage] = useState("");
   const [messageReceived, setMessageReceived] = useState("");
+  const { getAccessTokenSilently } = useAuth0();
 
   const joinRoom = () => {
     if (room !== "") {
@@ -20,10 +22,18 @@ const Chat = () => {
   };
 
   useEffect(() => {
-    socket.on("receive_message", (data) => {
-      setMessageReceived(data.message);
+    getAccessTokenSilently().then((accessToken) => {
+      socket = io.connect("http://localhost:3001", {
+        query: { accessToken },
+      });
+      socket.on("receive_message", (data) => {
+        setMessageReceived(data.message);
+      });
+      socket.on("connect_error", (error) => {
+        console.error(error);
+      });
     });
-  }, [socket]);
+  });
 
   return (
     <div>
